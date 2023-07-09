@@ -2,10 +2,14 @@
 
 import math
 
+# Variable Global #
+
+usuarios = {}
+
 # Funcion Menu Principal #
 
 def menu_principal():
-    print()
+    print("")
     print("Menu de opciones:")
     print("")
     print("1. Ingresar año.") # Ejercicio de año biciesto. #
@@ -14,11 +18,12 @@ def menu_principal():
     print("4. Funcion de relacion.") # El ejercicio solicitaba comparar (5, 10) / (10, 5) / (5, 5). #
     print("5. Funcion de intermedio.") # Nos pide que a partir de dos numeros nos devuelva el numero intermedio. #
     print("6. Funcion de recortar.") # No entendi bien la consigna, pero creo que funciona bien. #
-    print("7. Funcion de separar.") # De una lista "X" de numeros, las separamos por pares e impares y luego, las ordenamos de menor a mayor. #
-    print("8. Salir.") # Salimos del programa. #
+    print("7. Funcion de separar.") # De una lista "X" de numeros, las separamos por pares e impares y luego, las ordenamos de menor a mayor. / Editar la lista en la configuracion. #
+    print("8. Funcion de registro.") # Consigna de la pre-entrega. #
+    print("9. Salir.") # Salimos del programa. #
     print("")
 
-# Realizamos la consigna #
+# Funcion año biciesto. #
 
 def biciesto(ano):
     if (ano % 4 == 0 and ano % 100 != 0) or ano % 400 == 0:
@@ -90,50 +95,77 @@ def separar(lista):
     num_impares.sort()
     print(num_pares, num_impares)
 
+
+# Funciones de registro #
+
+def sub_menu():
+    print("")
+    print("Sub Menu de opciones: ")
+    print("")
+    print("A. Ver Usuarios Registrados.")
+    print("B. Volver al Menu Principal.")
+    print("")
+
+def registro(user, password):
+    if user in usuarios:
+        print("Usuario existente, por favor ingrese otro.")
+    else:
+        usuarios[user] = password
+        print("")
+        print("Su Usuario: " + user)
+        print("Su Contraseña: " + password)
+        print("")
+        print("¡Su registro ha sido generado exitosamente!")
+
+def mostrar(user, password):    
+    for user, password in usuarios.items():
+        print("")
+        print("Usuario: " + user + "\nContraseña: " + password)
+
 # Desplegamos las opciones del menu principal #
 
 def programa(menu):
-    menu = int(input("Ingrese una opcion: "))
-    while menu != 8:
-        if menu == 1:
+    menu = input("Ingrese una opcion: ")
+    while menu != "9":
+        if menu == "1":
             print("")
             consulta = int(input("Ingrese su año a saber si es biciesto o no: "))
             print("")
             biciesto(consulta)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 2:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "2":
             print("")
             base = float(input("Ingrese la Base del rectangulo: "))
             altura = float(input("Ingrese la Altura del rectangulo: "))
             print("")
             area_rectangulo(base, altura)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 3:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "3":
             print("")
             radio = float(input("Ingrese el Area a calcular: "))
             print("")
             area_circulo(radio)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 4:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "4":
             print("")
             numuero1 = float(input("Ingrese el Primer Numero: "))
             numuero2 = float(input("Ingrese el Segundo Numero: "))
             print("")
             relacion(numuero1, numuero2)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 5:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "5":
             print("")
             num1 = float(input("Ingrese el Primer Numero: "))
             num2 = float(input("Ingrese el Segundo Numero: "))
             print("")
             intermedio(num1, num2)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 6:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "6":
             print("")
             number1 = float(input("Ingrese el Numero a recortar: "))
             number2 = float(input("Ingrese el Numero que se posiciona en el Limite Inferior: "))
@@ -141,18 +173,37 @@ def programa(menu):
             print("")
             recortar(number1, number2, number3)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
-        elif menu == 7:
+            menu = input("Ingrese una opcion: ")
+        elif menu == "7":
             print("")
-            lista = [45, 23, 2, 197, 14, 100, 21, 14, 5, 92] # Lista editable. #
+            lista = [45, 23, 2, 197, 14, 100, 21, 14, 5, 92] # Lista editable. # -----------------------------------> ACA
             separar(lista)
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
+            menu = input("Ingrese una opcion: ")
+        elif menu == "8":
+            print("")
+            acc = input("Ingrese su Usuario: ")
+            pss = input("Ingrese su Contraseña: ")
+            registro(acc, pss)
+            sub_menu()
+            menu2 = input("Ingrese una sub opcion: ").upper()
+            while menu2 != "B":
+                if menu2 == "A":
+                    mostrar(acc, pss)
+                    sub_menu()
+                    menu2 = input("Ingrese una sub opcion: ").upper()
+                else:
+                    print("")
+                    print ("Ingreso un dato erroneo, por favor, ingrese una de las siguientes opciones.")
+                    sub_menu()
+                    menu2 = input("Ingrese una sub opcion: ").upper()
+            menu_principal()
+            menu = input("Ingrese una opcion: ").upper()
         else:
             print("")
             print ("Ingreso un dato erroneo, por favor, ingrese una de las siguientes opciones.")
             menu_principal()
-            menu = int(input("Ingrese una opcion: "))
+            menu = input("Ingrese una opcion: ")
     
     print("")
     print("Gracias por utilizar nuestro programa.")
